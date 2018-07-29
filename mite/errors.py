@@ -41,6 +41,11 @@ class MethodNotAllowed(HttpException):
     status_code = 405
 
 
+class UnprocessableEntity(HttpException):
+    name = "Unprocessable Entity"
+    status_code = 422
+
+
 class Locked(HttpException):
     name = "Locked"
     status_code = 423

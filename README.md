@@ -6,7 +6,6 @@ An idiomatic Python wrapper for the Mite API. Work in progess.
 
 Currently unimplemented is a wrapper around:
 
-- Customers
 - Projects
 - Services
 - Users

@@ -136,10 +136,8 @@ class Mite():
         """
         return self.get("/time_entries/{}.json".format(id_))
 
-    def _wrap_entry(self, data):
-        return {
-            "time_entry": kwargs
-        }
+    def _wrap_entry(self, key, data):
+        return { key: kwargs }
 
     def create_entry(self, **kwargs):
         """
@@ -148,7 +146,7 @@ class Mite():
         `note` (the entry text), `user_id`, `project_id`, `service_id`, and
         `locked`. All of them are optional.
         """
-        data = _wrap_entry(kwargs)
+        data = _wrap_dict("time_entry", kwargs)
 
         return self.post("/time_entries.json", data)
 
@@ -158,7 +156,7 @@ class Mite():
         requires an ID to work. It also takes a `force` parameter that, when set
         to True, allows administrators to edit locked entries.
         """
-        data = _wrap_entry(kwargs)
+        data = _wrap_dict("time_entry", kwargs)
 
         return self.patch("/time_entries/{}.json".format(id_), data)
 
@@ -180,11 +178,8 @@ class Mite():
         """
         data = None
         if kwargs:
-            data = {
-                "tracker": {
-                    "tracking_time_entry": kwargs
-                }
-            }
+            data = self._wrap_dict("tracker",
+                self._wrap_dict("tracking_time_entry", kwargs))
         return self.patch("/tracker/{}.json".format(id_), data=data)
 
     def stop_tracker(self, id_):
@@ -210,3 +205,48 @@ class Mite():
         Get all time entries associated with a bookmark.
         """
         return self.get("/time_entries/bookmarks/:{}/follow.json".format(id_))
+
+    def list_customers(self, **kwargs):
+        """
+        List all active customers. You can filter by `name`, `limit`, or `page`.
+        """
+        return self.get("/customers.json", params=kwargs)
+
+    def list_archived_customers(self, **kwargs):
+        """
+        List all archived customers. You can filter by `name`, `limit`, or
+        `page`.
+        """
+        return self.get("/customers/archived.json", params=kwargs)
+
+    def get_customer(self, id_):
+        """
+        Get a single customer by ID.
+        """
+        return self.get("/customers/{}.json".format(id_))
+
+    def create_customer(self, name, **kwargs):
+        """
+        Creates a customer with a name. All other parameters are optional. They
+        are: `note`, `active_hourly_rate`, `hourly_rate`,
+        `hourly_rates_per_service`, and `archived`.
+        """
+        data = self._wrap_dict("customer", kwargs)
+        data["customer"]["name"] = name
+        return self.post("/customers.json", data=data)
+
+    def edit_customer(self, id_, **kwargs):
+        """
+        Edits a customer by ID. All fields available at creation can be updated
+        as well. If you want to update hourly rates retroactively, set the
+        argument `update_hourly_rate_on_time_entries` to True.
+        """
+        data = self._wrap_dict("customer", kwargs)
+        return self.patch("/customers/{}.json".format(id_), data=data)
+
+    def delete_customer(self, id_):
+        """
+        Deletes a customer by ID. If the customer has associated projects, you
+        will get HTTP 422 (Unprocessable Entity) back.
+        """
+        return self.delete("/customers/{}.json".format(id_))
