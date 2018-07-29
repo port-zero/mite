@@ -111,7 +111,7 @@ class Mite():
         """
         return self.get("/myself.json")
 
-    def get_entries(self, **kwargs):
+    def list_entries(self, **kwargs):
         """
         Get all time entries. Accepts the filters `user_id`, `customer_id`,
         `project_id`, `service_id`, `note`, `at`, `from`, `to`, `billable`,
@@ -131,7 +131,7 @@ class Mite():
         url = "/daily/{}/{}/{}.json".format(date.year, date.month, date.day)
         return self.get(url)
 
-    def get_entry_by_id(self, id_):
+    def get_entry(self, id_):
         """
         Get a time entry by its ID.
         """
