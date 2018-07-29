@@ -26,9 +26,9 @@ class Mite():
         HttpException.
 
         """
-        url = self.url.format(config.TEAM, url)
+        url = self.url.format(self.team, url)
         headers = {
-            "X-MiteApikey": config.API_KEY,
+            "X-MiteApikey": self.api_key,
             "User-Agent":
                 "mite Python wrapper: https://github.com/port-zero/mite",
             "Content-Type": "application/json",
