@@ -8,12 +8,13 @@ with open('README.md') as f:
 setup(
     name='mite',
     author='Veit Heller',
-    version='0.0.2',
+    version='0.0.3',
     license='MIT',
     url='https://github.com/port-zero/mite',
     description='A modern Mite wrapper for Python',
     long_description=long_description,
-    download_url = 'https://github.com/port-zero/mite/tarball/0.0.2',
+    long_description_content_type="text/markdown",
+    download_url = 'https://github.com/port-zero/mite/tarball/0.0.3',
     packages=find_packages('.'),
     install_requires=[
         "requests",
