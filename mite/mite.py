@@ -8,6 +8,7 @@ class Mite():
     The class for interacting with mite. Create an instance using a team and
     api key and start requesting!
     """
+    # TODO: reduce code duplication
 
     def __init__(self, team, api_key):
         """
@@ -250,3 +251,115 @@ class Mite():
         will get HTTP 422 (Unprocessable Entity) back.
         """
         return self.delete("/customers/{}.json".format(id_))
+
+    def list_projects(self, **kwargs):
+        """
+        List all active projects. You can filter by `name`, `customer_id`,
+        `limit`, or `page`.
+        """
+        return self.get("/projects.json", params=kwargs)
+
+    def list_archived_projects(self, **kwargs):
+        """
+        List all archived projects. You can filter by `name`, `customer_id`,
+        `limit`, or `page`.
+        """
+        return self.get("/projects/archived.json", params=kwargs)
+
+    def get_project(self, id_):
+        """
+        Get a project by its ID.
+        """
+        return self.get("/projects/{}.json".format(id_))
+
+    def create_project(self, name, **kwargs):
+        """
+        Creates a project with a name. All other parameters are optional. They
+        are: `note`, `customer_id`, `budget`, `budget_type`, 
+        `active_hourly_rate`, `hourly_rate`, `hourly_rates_per_service`, and
+        `archived`.
+        """
+        data = self._wrap_dict("project", kwargs)
+        data["customer"]["name"] = name
+        return self.post("/projects.json", data=data)
+
+    def edit_project(self, id_, **kwargs):
+        """
+        Edits a project by ID. All fields available at creation can be updated
+        as well. If you want to update hourly rates retroactively, set the
+        argument `update_hourly_rate_on_time_entries` to True.
+        """
+        data = self._wrap_dict("project", kwargs)
+        return self.patch("/projects/{}.json".format(id_), data=data)
+
+    def delete_project(self, id_):
+        """
+        Deletes a project by ID. If the project has associated time entries, you
+        will get HTTP 422 (Unprocessable Entity) back.
+        """
+        return self.delete("/projects/{}.json".format(id_))
+
+    def list_services(self, **kwargs):
+        """
+        List all active services. You can filter by `name`, `customer_id`,
+        `limit`, or `page`.
+        """
+        return self.get("/services.json", params=kwargs)
+
+    def list_archived_services(self, **kwargs):
+        """
+        List all archived services. You can filter by `name`, `customer_id`,
+        `limit`, or `page`.
+        """
+        return self.get("/services/archived.json", params=kwargs)
+
+    def get_service(self, id_):
+        """
+        Get a service by its ID.
+        """
+        return self.get("/services/{}.json".format(id_))
+
+    def create_service(self, name, **kwargs):
+        """
+        Creates a service with a name. All other parameters are optional. They
+        are: `note`, `hourly_rate`, `billable`, and `archived`.
+        """
+        data = self._wrap_dict("service", kwargs)
+        data["customer"]["name"] = name
+        return self.post("/services.json", data=data)
+
+    def edit_service(self, id_, **kwargs):
+        """
+        Edits a service by ID. All fields available at creation can be updated
+        as well. If you want to update hourly rates retroactively, set the
+        argument `update_hourly_rate_on_time_entries` to True.
+        """
+        data = self._wrap_dict("service", kwargs)
+        return self.patch("/services/{}.json".format(id_), data=data)
+
+    def delete_service(self, id_):
+        """
+        Deletes a service by ID. If the service has associated time entries, you
+        will get HTTP 422 (Unprocessable Entity) back.
+        """
+        return self.delete("/services/{}.json".format(id_))
+
+    def list_users(self, **kwargs):
+        """
+        List all active users. You can filter by `name`, `email`, `customer_id`,
+        `limit`, or `page`.
+        """
+        return self.get("/users.json", params=kwargs)
+
+    def list_archived_users(self, **kwargs):
+        """
+        List all archived users. You can filter by `name`, `email`,
+        `customer_id`, `limit`, or `page`.
+        """
+        return self.get("/users/archived.json", params=kwargs)
+
+    def get_user(self, id_):
+        """
+        Get a user by its ID.
+        """
+        return self.get("/users/{}.json".format(id_))
