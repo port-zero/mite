@@ -2,8 +2,9 @@ class HttpException(Exception):
     name = ""
     status_code = None
 
-    def __init__(self, status_code):
-        self.status_code = status_code
+    def __init__(self, status_code=None):
+        if status_code:
+            self.status_code = status_code
 
     def __repr__(self):
         return "HTTP {} {}".format(self.status_code, self.name)

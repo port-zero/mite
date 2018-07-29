@@ -16,7 +16,7 @@ class Mite():
         """
         self.team = team
         self.api_key = api_key
-        self.url = "https://{}.mite.yo.lk/{}"
+        self.url = "https://{}.mite.yo.lk{}"
 
     def request(self, scheme, url, data=None, params=None):
         """
@@ -60,7 +60,7 @@ class Mite():
         the JSON body of the request or raises a HttpException.
 
         """
-        return self.request("post", url, data, params)
+        return self.request("get", url, data, params)
 
     def put(self, url, data=None, params=None):
         """
