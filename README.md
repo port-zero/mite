@@ -28,7 +28,7 @@ print(mite.list_entries())
 ```
 
 This will return a dictionary representing the JSON body of the response. If it
-fails it will throw an exception that inherits from `mite.HTTPException`, for
+fails it will throw an exception that inherits from `mite.HttpException`, for
 instance `mite.NotFound` for `404 Not Found` errors.
 
 For a comprehensive list of functions, take a look at [the generated
