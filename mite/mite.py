@@ -137,7 +137,7 @@ class Mite():
         """
         return self.get("/time_entries/{}.json".format(id_))
 
-    def _wrap_entry(self, key, data):
+    def _wrap_dict(self, key, data):
         return { key: kwargs }
 
     def create_entry(self, **kwargs):
