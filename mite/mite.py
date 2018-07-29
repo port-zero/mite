@@ -138,7 +138,7 @@ class Mite():
         return self.get("/time_entries/{}.json".format(id_))
 
     def _wrap_dict(self, key, data):
-        return { key: kwargs }
+        return { key: data }
 
     def create_entry(self, **kwargs):
         """
@@ -147,7 +147,7 @@ class Mite():
         `note` (the entry text), `user_id`, `project_id`, `service_id`, and
         `locked`. All of them are optional.
         """
-        data = _wrap_dict("time_entry", kwargs)
+        data = self._wrap_dict("time_entry", kwargs)
 
         return self.post("/time_entries.json", data)
 
@@ -157,7 +157,7 @@ class Mite():
         requires an ID to work. It also takes a `force` parameter that, when set
         to True, allows administrators to edit locked entries.
         """
-        data = _wrap_dict("time_entry", kwargs)
+        data = self._wrap_dict("time_entry", kwargs)
 
         return self.patch("/time_entries/{}.json".format(id_), data)
 
