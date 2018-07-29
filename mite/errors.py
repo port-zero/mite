@@ -2,6 +2,9 @@ class HttpException(Exception):
     name = ""
     status_code = None
 
+    def __init__(self, status_code):
+        self.status_code = status_code
+
     def __repr__(self):
         return "HTTP {} {}".format(self.status_code, self.name)
 
@@ -35,6 +38,11 @@ class NotFound(HttpException):
 class MethodNotAllowed(HttpException):
     name = "Method Not Allowed"
     status_code = 405
+
+
+class Locked(HttpException):
+    name = "Locked"
+    status_code = 423
 
 
 class TooManyRequests(HttpException):
@@ -83,3 +91,4 @@ def get_exception(status_code):
     for cls in exceptions:
         if cls.status_code == status_code:
             return cls()
+    return HttpException(status_code=status_code)

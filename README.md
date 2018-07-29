@@ -1,6 +1,15 @@
 # mite-python
 
-An idiomatic Python wrapper for the Mite API.
+An idiomatic Python wrapper for the Mite API. Work in progess.
+
+## Todo
+
+Currently unimplemented is a wrapper around:
+
+- Customers
+- Projects
+- Services
+- Users
 
 ## Installation
 
