@@ -11,7 +11,7 @@ pip install mite
 ```
 
 
-## Pre-requirement
+## Prerequisites
 
 You will need to create an API key. The API key will be created on the mite website. Login with your user and select "Account":
 
@@ -30,7 +30,7 @@ This will generate a key, it needs to be displayed. The key will be the `api key
 
 ![](Display.png)
 
-Once you have the generated, make sure to press the "Save" Button, otherwise the generated API toke won't work and you will get `mite.errors.Unauthorized: HTTP 401 Unauthorized` error message.
+Once you have the generated the API Key you have to make sure to press the "Save" Button, otherwise the generated API toke won't work and you will get `mite.errors.Unauthorized: HTTP 401 Unauthorized` error message.
 
 ## Usage
 
