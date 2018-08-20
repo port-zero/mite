@@ -10,6 +10,28 @@ An idiomatic Python wrapper for the Mite API.
 pip install mite
 ```
 
+
+## Pre-requirement
+
+You will need to create an API key. The API key will be created on the mite website. Login with your user and select "Account":
+
+![](Account.png)
+
+Now, you can select the "My Account" on the upper right of the website. 
+
+![](My_user.png)
+
+On the page, a checkbox can be located with the text: "Allow API access". Click on the checkbox.
+
+![](SetAPICheckbox.png)
+
+
+This will generate a key, it needs to be displayed. The key will be the `api key` parameter.
+
+![](Display.png)
+
+Once you have the generated, make sure to press the "Save" Button, otherwise the generated API toke won't work and you will get `mite.errors.Unauthorized: HTTP 401 Unauthorized` error message.
+
 ## Usage
 
 All requests are encapsulated in a `Mite` object. To construct this object, you
@@ -18,7 +40,7 @@ need to supply it with an API key and a team name (your subdomain on Mite):
 ```python
 from mite import Mite
 
-mite = Mite("<api key>", "<team name")
+mite = Mite("<team name","<api key>")
 ```
 
 Then you can start requesting. Let’s get a list of time entries!
